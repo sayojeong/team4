@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="swdo.syj.yayoung.dao.SignUpClassMapper">
+<insert id="insertBasket" parameterType="map">
+  		insert into basket(ins_num, bas_num, st_id) values(#{ins_num}, basket_seq.nextval, #{st_id})
+  	</insert>
+  	
+  	<insert id="insertBuy" parameterType="map"> <!-- 컬럼추가 -->
+  		insert into suc_class(suc_num, st_id, ins_num, tc_name, ins_thumbnailsave, ins_cate, ins_title) 
+  		values(suc_class_seq.nextval, #{st_id}, #{ins_num}, #{tc_name}, #{ins_thumbnailsave}, #{ins_cate}, #{ins_title})
+  	</insert>
+  	
+  	<select id="couponList" resultType="Coupon" parameterType="String">
+  		select * from coupon where st_id = #{st_id} order by c_discount desc
+  	</select>
+  	
+  	<delete id="delete" parameterType="map">
+  		delete from coupon where c_num = #{c_num} and st_id = #{st_id}  
+  	</delete>
+  	
+  	<select id="classCheck" parameterType="map" resultType="Suc">
+  		select * from suc_class where ins_num = #{ins_num} and st_id = #{st_id}
+  	</select>
+  	
+  	<select id="basketCheck" parameterType="map" resultType="Basket">
+  		select * from basket where ins_num = #{ins_num} and st_id = #{st_id}
+  	</select>
+  	
+  	<select id="basketList" parameterType="String" resultType="Basket">
+  		select * from basket where st_id = #{st_id}
+  	</select>
+  	
+  	<delete id="deleteBasket" parameterType="map">
+  		delete from basket where ins_num = #{ins_num} and st_id = #{st_id}  
+  	</delete>
+  	
+  	<select id="getSucClass" parameterType="string" resultType="int">
+  		select ins_num from suc_class where st_id = #{st_id} 
+  	</select>
+  	
+  	
+
+  </mapper>

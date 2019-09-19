@@ -1,0 +1,25 @@
+@charset "UTF-8";
+table {border: 3px solid maroon;}
+th#title {font-size: 25pt; color: #176844;}
+tr {height: 40pt;}
+
+td {border-bottom: 2px solid black;}
+td.day {font-size: 17pt; font-weight: bold; text-align: center; width: 100px;}
+td.sun {font-size: 17pt; font-weight: bold; color: red; text-align: center; width: 100px;}
+td.sat {font-size: 17pt; font-weight: bold; color: blue; text-align: center; width: 100px;}
+td.etcday {border-bottom: 2px solid black; text-align: right; vertical-align: top;}
+td.sunday {border-bottom: 2px solid black; text-align: right; vertical-align: top; color: red;}
+td.saturday {border-bottom: 2px solid black; text-align: right; vertical-align: top; color: blue;}
+td.before {border-bottom: 2px solid black; text-align: right; vertical-align: top; font-size: 10pt;
+	background: aqua;}
+td.after {border-bottom: 2px solid black; text-align: right; vertical-align: top; font-size: 10pt;
+	background: yellow;}
+	
+td.holiday {border-bottom: 2px solid black; text-align: right; vertical-align: top; color: white;
+	background: red; font-weight: bold;}
+span {font-size: 8pt;}
+	
+a:link {color: black; text-decoration: none;}			/* 한 번도 방문하지 않은 하이퍼링크 */
+a:visited {color: black; text-decoration: none;}		/* 한 번 이상 방문한 하이퍼링크 */
+a:hover {color: lime; text-decoration: underline;}		/* 하이퍼링크에 마우스를 올리고 있을 때 */
+a:active {color: fuchsia; text-decoration: none;}		/* 하이퍼링크를 누르고 있을 때 */

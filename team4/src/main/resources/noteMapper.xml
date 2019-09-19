@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+회원가입 Mapper
+2019-08-19
+김지수
+ -->
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="swdo.syj.yayoung.dao.NoteMapper">
+	<insert id="createNote" parameterType="map">
+		insert into note(note_num, st_id, note_content) values(note_seq.nextval, #{st_id}, #{note_content})
+	</insert>
+	
+	<select id="getNoteList" parameterType="string" resultType="Note">
+		select * from note where st_id=#{st_id} order by note_num desc
+	</select>
+	
+	<select id="noteDetail" parameterType="int" resultType="Note">
+		select * from note where note_num=#{note_num}
+	</select>
+	
+	<update id="noteUpdate" parameterType="Note">
+		update note set note_content=#{note_content} where note_num=#{note_num}
+	</update>
+	
+	<delete id="deleteNote" parameterType="int">
+		delete note where note_num=#{note_num}
+	</delete>
+	
+</mapper>

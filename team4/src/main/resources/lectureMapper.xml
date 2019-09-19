@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 강의 처리 SQL -->
+<mapper namespace="swdo.syj.yayoung.dao.LectureMapper">
+	<insert id="insertins" parameterType="InsClass">
+		insert into ins_class(ins_num, ins_title, ins_des, ins_cate, ins_price, tc_id, tc_name)
+			values(ins_class_seq.nextval, #{ins_title}, #{ins_des}, #{ins_cate}, #{ins_price}, #{tc_id}, #{tc_name})
+	</insert>
+	
+	<select id="getInsList" resultType="InsClass" parameterType="string">
+		select 
+			ins_num, 
+			ins_title, 
+			ins_des,
+			to_char(ins_date, 'YYYY-MM-DD') ins_date,
+			ins_cate,
+			ins_vidlist,
+			ins_price,
+			ins_thumbnail,
+			ins_thumbnailsave,
+			tc_id 
+		from 
+			ins_class 
+		where
+			 tc_id = #{tc_id} 
+		order by ins_num desc
+	</select>
+	
+	<select id="getOneVO" resultType="InsClass" parameterType="int">
+		select 
+			ins_num, 
+			ins_title, 
+			ins_des,
+			to_char(ins_date, 'YYYY-MM-DD') ins_date,
+			ins_cate,
+			ins_vidlist,
+			ins_price,
+			ins_thumbnail,
+			ins_thumbnailsave,
+			tc_id, 
+			tc_name
+		from 
+			ins_class 
+		where
+			 ins_num = #{ins_num} 
+	</select>
+	
+	<insert id="insert_vid" parameterType="InsClassVid">
+		insert into ins_class_vid(vid_num, vid_title, vid_desc, vid_vidname, vid_vidsavename, ins_num) 
+		values(ins_class_vid_seq.nextval, #{vid_title}, #{vid_desc}, #{vid_vidname}, #{vid_vidsavename}, #{ins_num})
+	</insert>
+	
+	<update id="updateThumb" parameterType="InsClassVid">
+		update ins_class set ins_thumbnailsave = #{vid_vidsavename} where ins_num = #{ins_num}
+	</update>
+	
+
+	<select id="classList" resultType="InsClass">
+		select ins_num, 
+			ins_title, 
+			ins_des,
+			to_char(ins_date, 'YYYY-MM-DD') ins_date,
+			ins_cate,
+			ins_vidlist,
+			ins_price,
+			ins_thumbnail,
+			ins_thumbnailsave,
+			tc_id  
+		from ins_class order by ins_date desc
+	</select>
+	
+	<select id="buy" resultType="InsClass" parameterType="int">
+		select 
+			ins_num, 
+			ins_title, 
+			ins_des,
+			to_char(ins_date, 'YYYY-MM-DD') ins_date,
+			ins_cate,
+			ins_vidlist,
+			ins_price,
+			ins_thumbnail,
+			ins_thumbnailsave,
+			tc_id 
+		from 
+			ins_class 
+		where
+			 ins_num = #{ins_num} 
+		order by ins_num desc
+	</select>
+	
+	<select id="getName" resultType="string">
+		select tc_name from teacher where tc_id = #{tc_id}
+	</select>
+	
+	<select id="countVid" parameterType="int" resultType="int">
+		select count(*) from ins_class_vid where ins_num = #{ins_num}
+	</select>
+
+	<update id="insertList" parameterType="map">
+		update ins_class set ins_vidlist = #{ins_vidlist}, ins_vidCount=#{ins_vidCount} where ins_num = #{ins_num}
+	</update>
+	
+	<select id="getVidList" parameterType="int" resultType="InsClassVid">
+		select * from ins_class_vid where ins_num = #{ins_num}
+	</select>
+
+	<insert id="insertQ" parameterType="HomeworkM">
+		insert into homework_m(m_num, m_question, m_answer, m_exp, vid_num)
+		values(homework_m_seq.nextval, #{m_question}, #{m_answer}, #{m_exp}, #{vid_num})
+	</insert>
+	
+	<select id="getQList" parameterType="int" resultType="HomeworkM">
+		select * from homework_m where vid_num = #{vid_num} order by m_num
+	</select>
+	
+	<insert id="insertQW" parameterType="HomeworkW">
+		insert into homework_w(w_num, w_question, w_pointexp, vid_num)
+		values(homework_w_seq.nextval, #{w_question}, #{w_pointexp}, #{vid_num})
+	</insert>
+	
+	<select id="getWList" parameterType="int" resultType="HomeworkW">		
+		select * from homework_w where vid_num = #{vid_num} order by w_num
+	</select>
+	
+	<select id="getLectureList" parameterType="string" resultType="Suc">
+		select * from  suc_class where st_id=#{st_id}
+	</select>
+
+	<insert id="insertHA" parameterType="map">
+		insert into HWanswer_st(hw_num, hw_answer, st_id, vid_num) values(HWanswer_st_seq.nextval, #{hw_answer}, #{st_id}, #{vid_num})
+	</insert>
+	
+	<select id="getstudentHW" parameterType="map" resultType="HomeworkST">
+		select * from HWanswer_st where st_id=#{st_id} and vid_num = #{vid_num} order by hw_num
+	</select>
+	
+	<update id="changeW" parameterType="int">
+		update HWanswer_st set st_correct = 'n' where hw_num = #{hw_num}
+	</update>
+	
+	<!-- 카테고리, 검색어를 통해 강의 찾기 -->
+	<select id="searchList" resultType="InsClass" parameterType="map">
+		select ins_num, 
+			ins_title, 
+			ins_des,
+			to_char(ins_date, 'YYYY-MM-DD') ins_date,
+			ins_cate,
+			ins_vidlist,
+			ins_price,
+			ins_thumbnail,
+			ins_thumbnailsave,
+			tc_id  
+		from ins_class 
+		where ins_cate = #{ins_cate} and ins_title like '%'||#{text}||'%'
+		order by ins_date desc
+	</select>
+	
+	<select id="allList" resultType="InsClass" parameterType="String">
+		select ins_num, 
+			ins_title, 
+			ins_des,
+			to_char(ins_date, 'YYYY-MM-DD') ins_date,
+			ins_cate,
+			ins_vidlist,
+			ins_price,
+			ins_thumbnail,
+			ins_thumbnailsave,
+			tc_id  
+		from ins_class 
+		where ins_title like '%'||#{text}||'%'
+		order by ins_date desc
+	</select>
+	
+	<select id="get" resultType="InsClass" parameterType="int">
+		select * from ins_class where ins_num = #{ins_num}
+	</select>
+	
+	<select id="getIns_num" resultType="int" parameterType="int">
+		select ins_num from ins_class_vid where vid_num=#{vid_num}
+	</select>
+	
+	<update id="updateHWST" parameterType="HomeworkST">
+		update hwanswer_st set m_question = #{m_question}, m_answer=#{m_answer}, m_exp=#{m_exp}, ins_num=#{ins_num} where hw_num=#{hw_num}
+	</update>
+	
+	<select id="getHWanswerList" parameterType="int" resultType="HomeworkST">
+		select * from hwanswer_st where vid_num = #{vid_num}
+	</select>
+	
+	<select id="getSTW" parameterType="int" resultType="HomeworkW">
+		select * from homework_w where vid_num = #{vid_num}
+	</select>
+	
+	<insert id="resAnswer" parameterType="HWanswer">
+		insert into studentwanswer(wa_num, wa_stans, w_question, w_pointexp, vid_num, st_id)
+		values(studentwanswer_seq.nextval, #{wa_stans}, #{w_question}, #{w_pointexp}, #{vid_num}, #{st_id})	
+	</insert>
+	
+	<select id="getSWAns" parameterType="map" resultType="HWanswer">
+		select * from studentwanswer where st_id = #{st_id} and vid_num = #{vid_num}
+	</select>
+	
+	<select id="getNC" parameterType="string" resultType="HWanswer">
+		select * from studentwanswer where st_id = #{st_id} and WA_TCOMMENT is null
+	</select>
+	
+	<select id="getWC" parameterType="string" resultType="HWanswer">
+		select * from studentwanswer where st_id = #{st_id} and WA_TCOMMENT is not null
+	</select>
+	
+	<select id="getIns_nums" parameterType="string" resultType="int">
+		select distinct ins_num from ins_class where tc_id = #{tc_id}
+	</select>
+	
+	<select id="getVid_nums" parameterType="list" resultType="int">
+			select distinct vid_num from ins_class_vid where
+				<foreach collection="list" item="list" separator="or" >
+					ins_num = #{list}
+                </foreach>
+	</select>
+	
+	<select id="TWanswerNC" parameterType="list" resultType="HWanswer">
+		select * from studentwanswer where 
+			<foreach collection="list" item="list" separator="or" open="(" close=")">
+				vid_num = #{list}
+			</foreach>
+			 and wa_tcomment is null
+	</select>
+	
+	<select id="TWanswerWC" parameterType="list" resultType="HWanswer">
+		select * from studentwanswer where 
+			<foreach collection="list" item="list" separator="or" open="(" close=")">
+				vid_num = #{list}
+			</foreach>
+			 and wa_tcomment is not null
+	</select>
+	
+	<select id="getSW" parameterType="int" resultType="HWanswer">
+		select * from studentwanswer where wa_num = #{wa_num}
+	</select>
+	
+	<update id="updateTWA" parameterType="HWanswer">
+		update studentwanswer set wa_tcomment = #{wa_tcomment} where wa_num = #{wa_num}
+	</update>
+	
+	<select id="getInsCount" parameterType="string" resultType="int">
+		select count(*) from ins_class where tc_id = #{tc_id}
+	</select>
+	
+	<select id="getInsClass" parameterType="string" resultType="InsClass">
+		select * from ins_class where tc_id=#{tc_id}
+	</select>
+	
+	<select id="getListNCCount" parameterType="string" resultType="int">
+		select count(*) from studentwanswer where 
+			<foreach collection="list" item="list" separator="or" open="(" close=")">
+				vid_num = #{list}
+			</foreach>
+			 and wa_tcomment is null
+	</select>
+
+	<select id="getListWCCount" parameterType="string" resultType="int">
+		select count(*) from studentwanswer where 
+			<foreach collection="list" item="list" separator="or" open="(" close=")">
+				vid_num = #{list}
+			</foreach>
+			 and wa_tcomment is not null
+	</select>
+	
+	<select id="getInsListByNum" parameterType="list" resultType="InsClass">
+		select * from ins_class where
+			<foreach collection="list" item="list" separator="or">
+				ins_num=#{list}
+			</foreach>
+	</select>
+	
+	<select id="getTeacherId" parameterType="int" resultType="string">
+		select tc_id from ins_class where ins_num=#{ins_num}
+	</select>
+	
+	<select id="getTeacherName" parameterType="string" resultType="string">
+		select tc_name from teacher where tc_id=#{tc_id}
+	</select>
+	
+	<select id="getVidTitle" parameterType="int" resultType="string">
+		select vid_title from ins_class_vid where vid_num=#{vid_num}
+	</select>
+	
+</mapper>

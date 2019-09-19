@@ -1,0 +1,351 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<c:set var="path" value="${pageContext.request.contextPath}"/>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="${path}/resources/js/jquery-3.4.1.js"></script>
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>YaYoung-English School-English School</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="${path}/resources/jjin/imges/core-img/favicon.ico">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="${path}/resources/jjin/style.css">
+	
+	<script>
+		function openQ(n) {
+			var url = "openTQ?wa_num="+n;
+			var name = "hw";
+		  	var option = "width = 600 , height = 500, top = 0, left = 200, location = no";
+		 	window.open(url, name, option);
+		}
+</script>
+ <style>
+		/* 네비바 로고 */
+		#yyLogoSpan1 {
+			font-size: 30pt;
+			color: white;
+			font-weight: bolder;
+		}
+		#yyLogoSpan2 {
+			font-size: 30pt;
+			color: #70c745;
+			font-weight: bolder;
+		}
+		/* 페이징 */
+		#yyPagenavi1 {
+			margin-top: 20px;
+		}
+		#yyPagenavi2 {
+			margin-top: 20px;
+		}
+		/* 표 */
+		.yyBoder {
+			text-align: center;
+		}
+		#yyInsTitle {
+			margin-bottom: 30px;
+			padding-bottom: 30px;
+		}
+
+	</style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img">
+            <img src="${path}/resources/jjin/imges/core-img/leaf.png" alt="">
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- ***** Top Header Area ***** -->
+        <div class="top-header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="top-header-content d-flex align-items-center justify-content-between">
+                            <!-- Top Header Content -->
+                            <div class="top-header-meta">
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="infodeercreative@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> <span>Email: syj4@gmail.com</span></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="+1 234 122 122"><i class="fa fa-phone" aria-hidden="true"></i> <span>Call : 010 1122 2211</span></a>
+                            </div>
+                            
+                            <!-- Top Header Content -->
+                            <div class="top-header-meta d-flex">
+                                <!-- 로그아웃 -->
+                                <div class="login">
+                                    <a href="${path}/login/logout"><i class="fa fa-user" aria-hidden="true"></i><span>로그아웃</span></a>
+                                </div>
+                                <!-- 개인정보 수정 -->
+                                <div class="login">
+                                    <a href="${path}/join/infoUpFormTc"><span>개인정보 수정</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ***** 고정 바 ***** -->
+        <div class="alazea-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="alazeaNav">
+
+                        <!-- Nav Brand -->
+                        	<!-- 로고 누르면 홈으로 가기 -->
+                        <a href="${path}/" class="nav-brand"><sapn id="yyLogoSpan1">YA</sapn><span id="yyLogoSpan2">YOUNG</span><%-- <img src="${path}/resources/jjin/imges/core-img/logo.png" alt=""> --%></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Navbar Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="${path}/">Home</a></li>
+                                    <li><a href="${path}/lecture/insertClass">강의 등록</a></li>
+                                    <li><a href="${path}/lecture/insertHW">과제 등록</a></li>
+                                    <li><a href="#">작문 답변</a></li>
+                                </ul>
+                            </div>
+                            <!-- Navbar End -->
+                        </div>
+                    </nav>
+
+                    <!-- Search Form -->
+                    <div class="search-form">
+                        <form action="#" method="get">
+                            <input type="search" name="search" id="search" placeholder="Type keywords &amp; press enter...">
+                            <button type="submit" class="d-none"></button>
+                        </form>
+                        <!-- Close Icon -->
+                        <div class="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <!-- Top Breadcrumb Area -->
+        <div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url(${path}/resources/jjin/imges/bg-img/24.jpg);">
+            <h2>작문 답변</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" id="textBoderTW">작문 답변</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### 작문대기 Start ##### -->
+    <div class="cart-area section-padding-0-100 clearfix">
+        <div class="container">
+            <div class="row">
+                <!-- Cart Totals -->
+                <div class="col-12 col-lg-6">
+                    <div class="cart-totals-area mt-70">
+                        <h5 class="title--">작문 답변 대기</h5>
+                        <div class="subtotal d-flex justify-content-between">
+                            <h5>학생 아이디</h5>
+                            <h5>문제</h5>
+                        </div>
+                        <c:forEach var="list" items="${listNC}">
+	                        <div class="subtotal d-flex justify-content-between">
+	                            <h5>${list.st_id}</h5>
+	                            <h5><a href="javascript:openQ(${list.wa_num});">${list.w_question}</a></h5>
+	                        </div>
+                        </c:forEach>
+                    </div>
+                    <!-- ##### 페이징 ##### -->
+			         <nav aria-label="Page navigation" id="yyPagenavi1">
+			             <ul class="pagination">
+			                 <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+			                 <li class="page-item"><a class="page-link" href="#">1</a></li>
+			                 <li class="page-item"><a class="page-link" href="#">2</a></li>
+			                 <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+			             </ul>
+			         </nav>
+			         <!-- ##### 페이징 ##### -->
+                </div>
+                <!-- Cart Totals -->
+                <div class="col-12 col-lg-6">
+                    <div class="cart-totals-area mt-70">
+                        <h5 class="title--">작문 답변 완료</h5>
+                        <div class="subtotal d-flex justify-content-between">
+                            <h5>학생 아이디</h5>
+                            <h5>문제</h5>
+                        </div>
+                        <c:forEach var="list" items="${listWC}">
+	                        <div class="subtotal d-flex justify-content-between">
+	                            <h5>${list.st_id}</h5>
+	                            <h5><a href="javascript:openQ(${list.wa_num});">${list.w_question}</a></h5>
+	                        </div>
+                        </c:forEach>
+                    </div>
+                    <!-- ##### 페이징 ##### -->
+			         <nav aria-label="Page navigation" id="yyPagenavi2">
+			             <ul class="pagination">
+			                 <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+			                 <li class="page-item"><a class="page-link" href="#">1</a></li>
+			                 <li class="page-item"><a class="page-link" href="#">2</a></li>
+			                 <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+			             </ul>
+			         </nav>
+			         <!-- ##### 페이징 ##### -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### 작문대기 End ##### -->
+
+    <!-- ##### 하단 Area Start ##### -->
+    <footer class="footer-area bg-img" style="background-image: url(${path}/resources/jjin/imges/bg-img/3.jpg);">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget">
+                            <div class="footer-logo mb-30">
+                                <!-- 로고 누르면 홈으로 가기 -->
+                        <a href="${path}/" class="nav-brand"><sapn id="yyLogoSpan1">YA</sapn><span id="yyLogoSpan2">YOUNG</span><%-- <img src="${path}/resources/jjin/imges/core-img/logo.png" alt=""> --%></a>
+                            </div>
+                            
+                            
+                            <div class="social-info">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget">
+                            <div class="widget-title">
+                                <h5>QUICK LINK</h5>
+                            </div>
+                            <nav class="widget-nav">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">F&A</a></li>
+                                    <li><a href="#">강의 등록</a></li>
+                                    <li><a href="#">Q&A</a></li>
+                                    <li><a href="#">과제 등록</a></li>
+                                    <li><a href="#">작문 답변</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget">
+                            <div class="widget-title">
+                                <h5>CONTACT</h5>
+                            </div>
+
+                            <div class="contact-information">
+                                <p><span>주소:</span> 광주 광산구 무진대로 282&nbsp7층</p>
+                                <p><span>연락처:</span> 010 1122 2211</p>
+                                <p><span>Email:</span> syj4@gmail.com</p>
+                                <p><span>상담 문의:</span> 월 - 금: 8 AM to 6 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 최하단 -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="border-line"></div>
+                    </div>
+                    <!-- Copywrite Text -->
+                    <div class="col-12 col-md-6">
+                        <div class="copywrite-text">
+                            <p>YAYOUNG-English School</p>
+                        </div>
+                    </div>
+                    <!-- Footer Nav -->
+                    <div class="col-12 col-md-6">
+                        <div class="footer-nav">
+                            <nav>
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">강의 등록</a></li>
+                                    <li><a href="#">과제 등록</a></li>
+                                    <li><a href="#">작문답변</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="${path}/resources/jjin/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="${path}/resources/jjin/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="${path}/resources/jjin/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="${path}/resources/jjin/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="${path}/resources/jjin/js/active.js"></script>
+</body>
+
+</html>

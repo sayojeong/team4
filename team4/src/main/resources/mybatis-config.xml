@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="swdo.syj.yayoung.vo.StudentVO" alias="Student" />
+		<typeAlias type="swdo.syj.yayoung.vo.TeacherVO" alias="Teacher" />
+		<typeAlias type="swdo.syj.yayoung.vo.Ins_classVO" alias="InsClass" />
+		<typeAlias type="swdo.syj.yayoung.vo.Ins_class_vidVO" alias="InsClassVid" />
+		<typeAlias type="swdo.syj.yayoung.vo.SignUpClassVO" alias="Suc" />
+		<typeAlias type="swdo.syj.yayoung.vo.CouponVO" alias="Coupon" />
+		<typeAlias type="swdo.syj.yayoung.vo.Homework_mVO" alias="HomeworkM" />
+		<typeAlias type="swdo.syj.yayoung.vo.Homework_wVO" alias="HomeworkW" />
+		<typeAlias type="swdo.syj.yayoung.vo.HWanswer_stVO" alias="HomeworkST" />
+		<typeAlias type="swdo.syj.yayoung.vo.BasketVO" alias="Basket" />
+		<typeAlias type="swdo.syj.yayoung.vo.StudentWAnswer" alias="HWanswer" />
+		<typeAlias type="swdo.syj.yayoung.vo.NoteVO" alias="Note" />
+		
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="loginMapper.xml"/>
+		<mapper resource="JoinMapper.xml"/>
+		<mapper resource="lectureMapper.xml"/>
+		<mapper resource="signupclassMapper.xml"/>
+		<mapper resource="noteMapper.xml"/>
+	</mappers>
+	
+</configuration>
