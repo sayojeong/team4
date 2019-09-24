@@ -20,7 +20,7 @@
     <link rel="icon" href="${path}/resources/jjin/imges/core-img/favicon.ico">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="${path}/resources/jjin/style.css">
+    <link rel="stylesheet" href="${path}/resources/jjin/style.css">ㅑ
         <script src="${path}/resources/js/jquery-3.4.1.js"></script>
     <script defer src="${path}/resources/js/face-api.min.js"></script>
 	<script defer src="${path}/resources/js/script2.js"></script>
@@ -29,8 +29,6 @@
 		$(document).ready(function(){
 			
 			$('.vid').on('click', showvid)
-			$('#ori').on('keyup', trans)
-			$("#add").on('click', addtext)
 			
 		})
 		
@@ -46,23 +44,28 @@
 			$('#video2').attr('src', txt);
 			$('#hid').val(ins_num);
 			
+			//왭캠의 소지 여부 
 			var result = confirm('웹캠을 가지고 계십니까?');
 			
 			if(result){
-				
+				//가지고 있을경우 카메라 화면이 보임
 				$('#video').attr('hidden', false);
 				return;
 				
 			}else{
 				
 				alert('노캠모드로 감시 합니다.')
+				//가지고 있지 않을경우 hidden 유지
 				$('#video').attr('hidden', true);
 				$('canvas').attr('hidden', true);
 				
+				//setInterval() 함수로 일정시간동안 팝업창 띄움
 			  	setInterval(function(){
-				var w = window.innerWidth - 50;
-				var h = window.innerHeight - 50;
+			  	//화면 넗이와 높이에서 100 씩 빼줌	
+				var w = window.innerWidth - 100;
+				var h = window.innerHeight - 100;
 				
+				//랜덤으로 팝업창의 좌표를 설정
 				var width = Math.floor(Math.random()*w)+1;
 				var height = Math.floor(Math.random()*h)+1;
 				
@@ -74,41 +77,12 @@
 					
 			 	window.open(url, name, option);
 					
-				}, 20000);
+				}, 20000);//20초로 설정
 				
 			}
 				
 		}
 		
-		function trans(){
-			var ori = $(this).val()
-			var olang = $('select>option:selected').attr('olang');
-			var tlang = $('select>option:selected').attr('tlang');
-			
-			
-			$.ajax({
-				url:'translate',
-				type:'get',
-				data:{ori:ori, olang:olang, tlang:tlang},
-				success:function(j){
-					
-				
-					$('#show').html(j);
-					
-					
-				},
-				error:function(){
-						
-				}
-			})
-		}
-		function addtext(){
-			var translated = $('#show').html();
-			var text = $('#note').val();
-			text += translated;
-			
-			$('#note').val(text);
-		}
 	</script>
     
     <style>
@@ -149,7 +123,7 @@
 		position:absolute;
 		}
 
-		#translator{
+		#summernote{
 			margin-top: 500px;
 			top:150px;
 			left:1000px;
@@ -313,19 +287,24 @@
 	             </ul>
 	        </nav> -->
 	        <hr><br>	
+	        <!-- 카메라 화면 -->
 			<div id="vid">
+				<!-- 처음엔 숨겨놓음 -->
 				<video id="video" width="180" height="160" autoplay muted hidden="true"></video>
 			</div>
+			<!-- 강의 비디오 -->
 			<div id="showVid">
 				<video id="video2" src="" width="700" height="400" inum="" controls>
 			</div>
 			<input type="hidden" id="hid">
-				
+			
+			<!-- 사이렌 -->	
 			<audio id="siren">
 			    <source src="../resources/audio/siren.wav" type="audio/wav">
 			</audio>
 				
-			<div id="translator">
+			<!-- 썸머노트  -->	
+			<div id="summernote">
 			<iframe src="../note/note" width="520" height="400"  frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>	
 			</div>
     	</div>

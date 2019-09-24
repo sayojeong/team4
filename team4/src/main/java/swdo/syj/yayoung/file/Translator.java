@@ -33,13 +33,7 @@ public class Translator {
    
   public String translateText(String text, String sourceLang, String targetLang){
      
-    /* Method: POST
-     * Request URL: https://openapi.naver.com/v1/language/translate
-     * Return type: JSON
-     * Required Parameters (1) source
-     *             (2) target
-     *             (3) text
-     */
+    
     String translatedText = null;
      
     try{

@@ -5,11 +5,13 @@
 
 <!-- 강의 처리 SQL -->
 <mapper namespace="swdo.syj.yayoung.dao.LectureMapper">
+	<!-- 강의 등록 -->
 	<insert id="insertins" parameterType="InsClass">
 		insert into ins_class(ins_num, ins_title, ins_des, ins_cate, ins_price, tc_id, tc_name)
 			values(ins_class_seq.nextval, #{ins_title}, #{ins_des}, #{ins_cate}, #{ins_price}, #{tc_id}, #{tc_name})
 	</insert>
 	
+	<!-- 등록된 강의 리스트 가져오기 -->
 	<select id="getInsList" resultType="InsClass" parameterType="string">
 		select 
 			ins_num, 
@@ -29,6 +31,7 @@
 		order by ins_num desc
 	</select>
 	
+	<!-- 강의 하나에 대한 정보 가져오기 -->
 	<select id="getOneVO" resultType="InsClass" parameterType="int">
 		select 
 			ins_num, 
@@ -48,16 +51,18 @@
 			 ins_num = #{ins_num} 
 	</select>
 	
+	<!-- 비디오 등록 -->
 	<insert id="insert_vid" parameterType="InsClassVid">
 		insert into ins_class_vid(vid_num, vid_title, vid_desc, vid_vidname, vid_vidsavename, ins_num) 
 		values(ins_class_vid_seq.nextval, #{vid_title}, #{vid_desc}, #{vid_vidname}, #{vid_vidsavename}, #{ins_num})
 	</insert>
 	
+	<!-- 가으이 메인 섬네일 등록 -->
 	<update id="updateThumb" parameterType="InsClassVid">
 		update ins_class set ins_thumbnailsave = #{vid_vidsavename} where ins_num = #{ins_num}
 	</update>
 	
-
+	<!--  -->
 	<select id="classList" resultType="InsClass">
 		select ins_num, 
 			ins_title, 
@@ -72,6 +77,7 @@
 		from ins_class order by ins_date desc
 	</select>
 	
+	<!--  -->
 	<select id="buy" resultType="InsClass" parameterType="int">
 		select 
 			ins_num, 
@@ -91,52 +97,64 @@
 		order by ins_num desc
 	</select>
 	
+	<!--  -->
 	<select id="getName" resultType="string">
 		select tc_name from teacher where tc_id = #{tc_id}
 	</select>
 	
+	<!-- 비디오 개수 가져오기 -->
 	<select id="countVid" parameterType="int" resultType="int">
 		select count(*) from ins_class_vid where ins_num = #{ins_num}
 	</select>
 
+	<!-- 강의 목록 저장 -->
 	<update id="insertList" parameterType="map">
 		update ins_class set ins_vidlist = #{ins_vidlist}, ins_vidCount=#{ins_vidCount} where ins_num = #{ins_num}
 	</update>
 	
+	<!-- 강의에 등록된 비디오 리스트 가져오기 -->
 	<select id="getVidList" parameterType="int" resultType="InsClassVid">
 		select * from ins_class_vid where ins_num = #{ins_num}
 	</select>
 
+	<!-- 객관식 과제등록 -->
 	<insert id="insertQ" parameterType="HomeworkM">
 		insert into homework_m(m_num, m_question, m_answer, m_exp, vid_num)
 		values(homework_m_seq.nextval, #{m_question}, #{m_answer}, #{m_exp}, #{vid_num})
 	</insert>
 	
+	<!-- 등록된 객관식 과제 가져오기 -->
 	<select id="getQList" parameterType="int" resultType="HomeworkM">
 		select * from homework_m where vid_num = #{vid_num} order by m_num
 	</select>
 	
+	<!-- 주관식 과제 등록 -->
 	<insert id="insertQW" parameterType="HomeworkW">
 		insert into homework_w(w_num, w_question, w_pointexp, vid_num)
 		values(homework_w_seq.nextval, #{w_question}, #{w_pointexp}, #{vid_num})
 	</insert>
 	
+	<!-- 주관식 문제 가져오기 -->
 	<select id="getWList" parameterType="int" resultType="HomeworkW">		
 		select * from homework_w where vid_num = #{vid_num} order by w_num
 	</select>
 	
+	<!--  -->
 	<select id="getLectureList" parameterType="string" resultType="Suc">
 		select * from  suc_class where st_id=#{st_id}
 	</select>
 
+	<!-- 학생 답변 등록 -->
 	<insert id="insertHA" parameterType="map">
 		insert into HWanswer_st(hw_num, hw_answer, st_id, vid_num) values(HWanswer_st_seq.nextval, #{hw_answer}, #{st_id}, #{vid_num})
 	</insert>
 	
+	<!-- 학생 답변 목록 가져오기 -->
 	<select id="getstudentHW" parameterType="map" resultType="HomeworkST">
 		select * from HWanswer_st where st_id=#{st_id} and vid_num = #{vid_num} order by hw_num
 	</select>
 	
+	<!-- hwanswer_st테이블의 st_correct의 값을 'n'으로 바꿈 -->
 	<update id="changeW" parameterType="int">
 		update HWanswer_st set st_correct = 'n' where hw_num = #{hw_num}
 	</update>
@@ -158,6 +176,7 @@
 		order by ins_date desc
 	</select>
 	
+	<!--  -->
 	<select id="allList" resultType="InsClass" parameterType="String">
 		select ins_num, 
 			ins_title, 
@@ -174,47 +193,58 @@
 		order by ins_date desc
 	</select>
 	
+	<!--  -->
 	<select id="get" resultType="InsClass" parameterType="int">
 		select * from ins_class where ins_num = #{ins_num}
 	</select>
 	
+	<!-- 비디오의 강의 번호 가져오기 -->
 	<select id="getIns_num" resultType="int" parameterType="int">
 		select ins_num from ins_class_vid where vid_num=#{vid_num}
 	</select>
 	
+	<!-- 오답정보저장 -->
 	<update id="updateHWST" parameterType="HomeworkST">
 		update hwanswer_st set m_question = #{m_question}, m_answer=#{m_answer}, m_exp=#{m_exp}, ins_num=#{ins_num} where hw_num=#{hw_num}
 	</update>
 	
+	<!-- 오답정리 리스트 가져오기 -->
 	<select id="getHWanswerList" parameterType="int" resultType="HomeworkST">
 		select * from hwanswer_st where vid_num = #{vid_num}
 	</select>
 	
+	<!-- 작문문제 가져오기 -->
 	<select id="getSTW" parameterType="int" resultType="HomeworkW">
 		select * from homework_w where vid_num = #{vid_num}
 	</select>
 	
+	<!-- 학생 영작 등록 -->
 	<insert id="resAnswer" parameterType="HWanswer">
 		insert into studentwanswer(wa_num, wa_stans, w_question, w_pointexp, vid_num, st_id)
 		values(studentwanswer_seq.nextval, #{wa_stans}, #{w_question}, #{w_pointexp}, #{vid_num}, #{st_id})	
 	</insert>
 	
+	<!-- 학생이 푼 영작문제 가져오기 -->
 	<select id="getSWAns" parameterType="map" resultType="HWanswer">
 		select * from studentwanswer where st_id = #{st_id} and vid_num = #{vid_num}
 	</select>
 	
+	<!-- 선생님 코멘트 없는 작문 -->
 	<select id="getNC" parameterType="string" resultType="HWanswer">
 		select * from studentwanswer where st_id = #{st_id} and WA_TCOMMENT is null
 	</select>
 	
+	<!-- 선생님 코멘트 있는 작문 -->
 	<select id="getWC" parameterType="string" resultType="HWanswer">
 		select * from studentwanswer where st_id = #{st_id} and WA_TCOMMENT is not null
 	</select>
 	
+	<!-- 로그인한 선생님의 강의 번호가져오기 -->
 	<select id="getIns_nums" parameterType="string" resultType="int">
 		select distinct ins_num from ins_class where tc_id = #{tc_id}
 	</select>
 	
+	<!-- 위의 강의번호로 저장한 비디오 가져오기 -->
 	<select id="getVid_nums" parameterType="list" resultType="int">
 			select distinct vid_num from ins_class_vid where
 				<foreach collection="list" item="list" separator="or" >
@@ -222,6 +252,7 @@
                 </foreach>
 	</select>
 	
+	<!-- 선생님 코멘트 없는 영작 - 선생님 -->
 	<select id="TWanswerNC" parameterType="list" resultType="HWanswer">
 		select * from studentwanswer where 
 			<foreach collection="list" item="list" separator="or" open="(" close=")">
@@ -230,6 +261,7 @@
 			 and wa_tcomment is null
 	</select>
 	
+	<!-- 선생님 코멘트 있는 영작 - 선생님 -->
 	<select id="TWanswerWC" parameterType="list" resultType="HWanswer">
 		select * from studentwanswer where 
 			<foreach collection="list" item="list" separator="or" open="(" close=")">
@@ -238,22 +270,27 @@
 			 and wa_tcomment is not null
 	</select>
 	
+	<!-- 학생답변완료가져오기  -->
 	<select id="getSW" parameterType="int" resultType="HWanswer">
 		select * from studentwanswer where wa_num = #{wa_num}
 	</select>
 	
+	<!-- 선생님 코멘트 등록 -->
 	<update id="updateTWA" parameterType="HWanswer">
 		update studentwanswer set wa_tcomment = #{wa_tcomment} where wa_num = #{wa_num}
 	</update>
 	
+	<!--  -->
 	<select id="getInsCount" parameterType="string" resultType="int">
 		select count(*) from ins_class where tc_id = #{tc_id}
 	</select>
 	
+	<!--  -->
 	<select id="getInsClass" parameterType="string" resultType="InsClass">
 		select * from ins_class where tc_id=#{tc_id}
 	</select>
 	
+	<!--  -->
 	<select id="getListNCCount" parameterType="string" resultType="int">
 		select count(*) from studentwanswer where 
 			<foreach collection="list" item="list" separator="or" open="(" close=")">
@@ -262,6 +299,7 @@
 			 and wa_tcomment is null
 	</select>
 
+	<!--  -->
 	<select id="getListWCCount" parameterType="string" resultType="int">
 		select count(*) from studentwanswer where 
 			<foreach collection="list" item="list" separator="or" open="(" close=")">
@@ -270,6 +308,7 @@
 			 and wa_tcomment is not null
 	</select>
 	
+	<!--  -->
 	<select id="getInsListByNum" parameterType="list" resultType="InsClass">
 		select * from ins_class where
 			<foreach collection="list" item="list" separator="or">
@@ -277,14 +316,17 @@
 			</foreach>
 	</select>
 	
+	<!--  -->
 	<select id="getTeacherId" parameterType="int" resultType="string">
 		select tc_id from ins_class where ins_num=#{ins_num}
 	</select>
 	
+	<!--  -->
 	<select id="getTeacherName" parameterType="string" resultType="string">
 		select tc_name from teacher where tc_id=#{tc_id}
 	</select>
 	
+	<!-- 비디오 제목 가져오기 -->
 	<select id="getVidTitle" parameterType="int" resultType="string">
 		select vid_title from ins_class_vid where vid_num=#{vid_num}
 	</select>

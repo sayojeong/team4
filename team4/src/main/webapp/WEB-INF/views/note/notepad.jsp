@@ -30,8 +30,11 @@ $(function(){
 });
 
 function trans(){
+			//원문 입력
 			var ori = $(this).val()
+			//원문의 언어
 			var olang = $('select>option:selected').attr('olang');
+			//번역될 언어
 			var tlang = $('select>option:selected').attr('tlang');
 			
 			
